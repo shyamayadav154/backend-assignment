@@ -24,3 +24,19 @@ export async function sendRequest(url, args) {
     body: JSON.stringify(args),
   }).then((res) => res.json());
 }
+
+
+export function flattenObject(obj) {
+  const flattened = {};
+  if (!obj) return;
+  Object.keys(obj).forEach((key) => {
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      Object.keys(obj[key]).forEach((innerKey) => {
+        flattened[innerKey] = obj[key][innerKey];
+      });
+    } else {
+      flattened[key] = obj[key];
+    }
+  });
+  return flattened;
+}
